@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./algokit-utils-py/src"
+    ]
+}
