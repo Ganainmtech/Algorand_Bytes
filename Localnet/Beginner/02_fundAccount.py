@@ -6,7 +6,7 @@ from algokit_utils.beta.algorand_client import (
 # Initialize an Algorand client connected to the default local network
 algorand = AlgorandClient.default_local_net()
 
-# Get a dispenser account to fund other accounts
+# Get dispenser account from KMD to fund other accounts
 dispenser = algorand.account.dispenser()
 
 # Create a new random account
