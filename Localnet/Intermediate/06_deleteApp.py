@@ -1,7 +1,7 @@
 '''
 This script deletes an existing Algorand smart contract from the blockchain, removing its state and logic.
 
-Before running this script, make sure to:
+This is where you would include any setup code needed, such as:
 
 - Import the necessary libraries and modules:
   from algokit_utils.beta.algorand_client import *

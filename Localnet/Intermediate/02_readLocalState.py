@@ -2,7 +2,7 @@
 This script retrieves and displays the local state of a specific application associated with an Algorand account.
 
 
-Before running this script, make sure to:
+This is where you would include any setup code needed, such as:
 
 - Import the necessary libraries and modules:
   from algokit_utils.beta.algorand_client import *

@@ -1,7 +1,7 @@
 '''
 This script updates an existing Algorand smart contract with new approval and clear programs while preserving the application ID.
 
-Before running this script, make sure to:
+This is where you would include any setup code needed, such as:
 
 - Import the necessary libraries and modules:
   from algokit_utils.beta.algorand_client import *
@@ -33,7 +33,6 @@ algorand.send.application_update(
 
 '''
 About Updating Smart Contracts:
-- This script demonstrates how to update an existing Algorand Smart Contract (ASC1) with new logic.
 - The approval program defines the main logic of the smart contract, while the clear program defines the logic for clearing state (often used when an account opts out).
 
 Why Update a Smart Contract?
@@ -43,6 +42,5 @@ Why Update a Smart Contract?
 Remember:
 - Only the account with the appropriate permissions (typically the creator or manager) can update the smart contract.
 - Ensure that the new programs are thoroughly tested before deployment to avoid introducing new issues.
-- The `app_id` corresponds to an existing smart contract on the Algorand network, and it remains the same after the update.
 '''
 

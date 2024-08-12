@@ -1,7 +1,7 @@
 '''
 This script demonstrates how to opt a multisig account into an asset, allowing it to manage and transact with that asset.
 
-Before running this script, make sure to:
+This is where you would include any setup code needed, such as:
 
 - Import the necessary libraries and modules:
   from algokit_utils.beta.algorand_client import *
