@@ -13,11 +13,11 @@ algorand = AlgorandClient.default_local_net()
 dispenser = algorand.account.dispenser()
 
 # Create and fund a new account (creator)
-creator = algorand.account.random()
+accountOne = algorand.account.random()
 algorand.send.payment(
     PayParams(
         sender=dispenser.address,
-        receiver=creator.address,
+        receiver=accountOne.address,
         amount=10_000_000  # Fund with 10 Algos
     )
 )
@@ -25,13 +25,13 @@ algorand.send.payment(
 # Create a new Algorand Standard Asset (ASA)
 sent_txn = algorand.send.asset_create(
     AssetCreateParams(
-        sender=creator.address,
+        sender=accountOne.address,
         total=1000,  
         asset_name="algofam",  
         unit_name="FAM",  
-        manager=creator.address, 
-        clawback=creator.address,  
-        freeze=creator.address  
+        manager=accountOne.address, 
+        clawback=accountOne.address,  
+        freeze=accountOne.address  
     )
 )
 
@@ -39,11 +39,11 @@ sent_txn = algorand.send.asset_create(
 asset_id = sent_txn["confirmation"]["asset-index"]
 
 # Create and fund another new account (receiver)
-receiver = algorand.account.random()
+accountTwo = algorand.account.random()
 algorand.send.payment(
     PayParams(
         sender=dispenser.address,
-        receiver=receiver.address,
+        receiver=accountTwo.address,
         amount=10_000_000  # Fund with 10 Algos
     )
 )
@@ -51,7 +51,7 @@ algorand.send.payment(
 # Opt-in the receiver account to the newly created ASA
 algorand.send.asset_opt_in(
     AssetOptInParams(
-        sender=receiver.address,
+        sender=accountTwo.address,
         asset_id=asset_id
     )
 )
@@ -59,8 +59,8 @@ algorand.send.asset_opt_in(
 # Transfer 10 units of the ASA from creator to receiver
 algorand.send.asset_transfer(
     AssetTransferParams(
-        sender=creator.address,
-        receiver=receiver.address,
+        sender=accountOne.address,
+        receiver=accountTwo.address,
         asset_id=asset_id, # The extracted Asset ID
         amount=10  # Transfer amount
     )

@@ -10,13 +10,13 @@ algorand = AlgorandClient.default_local_net()
 dispenser = algorand.account.dispenser()
 
 # Create a new random account
-creator = algorand.account.random()
+accountOne = algorand.account.random()
 
 # Transfer 10 Algos from the dispenser to the creator account
 algorand.send.payment(
     PayParams(
         sender=dispenser.address,
-        receiver=creator.address,
+        receiver=accountOne.address,
         amount=10_000_000  # Amount in microAlgos (10 Algos)
     )
 )

@@ -38,11 +38,11 @@ sent_txn = algorand.send.asset_create(
 asset_id = sent_txn["confirmation"]["asset-index"]
 
 # Create and fund receiver account
-receiver = algorand.account.random()
+accountTwo = algorand.account.random()
 algorand.send.payment(
     PayParams(
         sender=dispenser.address,
-        receiver=receiver.address,
+        receiver=accountTwo.address,
         amount=10_000_000
     )
 )
@@ -50,7 +50,7 @@ algorand.send.payment(
 # Opt-in receiver account to the newly created asset
 algorand.send.asset_opt_in(
     AssetOptInParams(
-        sender=receiver.address,
+        sender=accountTwo.address,
         asset_id=asset_id
     )
 )
