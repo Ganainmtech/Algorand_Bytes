@@ -17,11 +17,11 @@ def index():
 
 @app.route('/generate_account', methods=['POST'])
 def generate_account():
-    account = algo.generate_account()
-    flash(f"Generated Account Address: {account.address}")
+    account_address = algo.generate_account()
+    flash(f"Generated Account Address: {account_address}")
     
     # Store the account creation as an activity (no tx_id here)
-    blockchain_activity.append((None, account.address, 'Account Created'))
+    blockchain_activity.append((None, account_address, 'Account Created'))
     
     return redirect(url_for('index'))
 
@@ -29,7 +29,7 @@ def generate_account():
 def fund_account():
     address = request.form.get('address')
     tx_id = algo.fund_account(address)
-    flash(f"Funded Account: {address}")
+    flash(f"Funded Account: {address} with Transaction ID: {tx_id}")
     
     # Store the funding as an activity
     blockchain_activity.append((tx_id, address, 'Account Funded'))
@@ -39,35 +39,40 @@ def fund_account():
 @app.route('/create_asa', methods=['POST'])
 def create_asa():
     creator_address = request.form.get('creator_address')
-    # Set the account for ASA creation
-    algo.set_account(creator_address)  # Use the new set_account method
     
-    asset_id, tx_id = algo.create_asa()
-    flash(f"Created ASA with Asset ID: {asset_id} and Transaction ID: {tx_id}")
-    
-    # Store the ASA creation as an activity
-    blockchain_activity.append((tx_id, f'ASA {asset_id}', 'ASA Created'))
+    try:
+        asset_id, tx_id = algo.create_asa(creator_address)
+        flash(f"Created ASA with Asset ID: {asset_id} and Transaction ID: {tx_id}")
+        
+        # Store the ASA creation as an activity
+        blockchain_activity.append((tx_id, f'ASA {asset_id}', 'ASA Created'))
+    except Exception as e:
+        flash(f"Error creating ASA: {str(e)}")
     
     return redirect(url_for('index'))
 
 @app.route('/generate_receiver_account', methods=['POST'])
 def generate_receiver_account():
-    account = algo.generate_account()
-    flash(f"Generated Receiver Account Address: {account.address}")
+    account_address = algo.generate_account()
+    flash(f"Generated Receiver Account Address: {account_address}")
     
     # Store the receiver account creation as an activity (no tx_id here)
-    blockchain_activity.append((None, account.address, 'Receiver Account Created'))
+    blockchain_activity.append((None, account_address, 'Receiver Account Created'))
     
     return redirect(url_for('index'))
 
 @app.route('/opt_in_asa', methods=['POST'])
 def opt_in_asa():
     receiver_address = request.form.get('receiver_address')
-    tx_id = algo.opt_in_asa(receiver_address)
-    flash(f"Opted Receiver Account {receiver_address} into ASA")
     
-    # Store the opt-in as an activity
-    blockchain_activity.append((tx_id, receiver_address, 'Opted-in ASA'))
+    try:
+        tx_id = algo.opt_in_asa(receiver_address)
+        flash(f"Opted Receiver Account {receiver_address} into ASA with Transaction ID: {tx_id}")
+        
+        # Store the opt-in as an activity
+        blockchain_activity.append((tx_id, receiver_address, 'Opted-in ASA'))
+    except Exception as e:
+        flash(f"Error opting in ASA: {str(e)}")
     
     return redirect(url_for('index'))
 
@@ -76,11 +81,15 @@ def transfer_asa():
     sender_address = request.form.get('sender_address')
     receiver_address = request.form.get('receiver_address')
     amount = int(request.form.get('amount'))
-    tx_id = algo.transfer_asa(sender_address, receiver_address, amount)
-    flash(f"Transferred {amount} units from {sender_address} to {receiver_address}")
     
-    # Store the transfer as an activity
-    blockchain_activity.append((tx_id, receiver_address, f'Transferred {amount} ASA'))
+    try:
+        tx_id = algo.transfer_asa(sender_address, receiver_address, amount)
+        flash(f"Transferred {amount} units from {sender_address} to {receiver_address} with Transaction ID: {tx_id}")
+        
+        # Store the transfer as an activity
+        blockchain_activity.append((tx_id, receiver_address, f'Transferred {amount} ASA'))
+    except Exception as e:
+        flash(f"Error transferring ASA: {str(e)}")
     
     return redirect(url_for('index'))
 
