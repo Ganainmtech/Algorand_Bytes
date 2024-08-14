@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algorand Demo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-tomorrow.min.css"> <!-- Prism.js CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script> <!-- Prism.js -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/jpg">
 </head>
 <body>
     <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
     <h1>Algorand Demo</h1>
-    <h2 class="subtitle">Welcome to the Algorand Journey</h2> <!-- Subtitle -->
+    <h2 class="subtitle">Welcome to the Algorand Journey</h2>
+
+    <!-- Code Snippet Section -->
+    <div class="code-container">
+        <pre><code class="language-python" id="codeSnippet">
+# Create a new random account
+accountOne = algorand.account.random()
+        </code></pre>
+        <button class="copy-btn" onclick="copyCode('codeSnippet')">Copy Code</button>
+    </div>
 
     <form action="/generate_account" method="post">
         <button type="submit" class="btn">Generate Account</button>

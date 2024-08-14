@@ -4,7 +4,7 @@ body {
     color: #333;
     margin: 0;
     padding: 20px;
-    text-align: center; /* Center align everything */
+    text-align: center;
 }
 
 h1 {
@@ -26,7 +26,7 @@ form {
 
 input[type="text"],
 input[type="number"] {
-    width: 40%; /* Adjust the width to make it more balanced on larger screens */
+    width: 40%; 
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -43,9 +43,9 @@ button.btn {
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 200px; /* Fixed button width */
-    margin: 10px auto; /* Center the button */
-    display: block; /* Ensure the button stays centered */
+    width: 200px;
+    margin: 10px auto; 
+    display: block; 
 }
 
 button.btn:hover {
@@ -53,8 +53,8 @@ button.btn:hover {
 }
 
 table {
-    width: 80%; /* Adjusted table width */
-    margin: 0 auto 20px auto; /* Center the table and add bottom margin */
+    width: 80%;
+    margin: 0 auto 20px auto;
     border-collapse: collapse;
     margin-top: 20px;
 }
@@ -107,4 +107,43 @@ img.logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* Additional styling for the code block and copy button */
+.code-container {
+    background-color: #2d3e50; /* Dark background to complement the theme */
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px auto;
+    width: 60%; /* Narrower width for the code block */
+    text-align: left;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    max-width: 800px; /* Ensure the box doesn't get too wide */
+    overflow-x: auto; /* Horizontal scroll for long lines */
+}
+
+.code-container pre {
+    margin: 0;
+    white-space: pre-wrap; /* Allows wrapping inside the box */
+    word-wrap: break-word; /* Ensures words don't overflow */
+    font-family: 'Courier New', Courier, monospace; /* Monospaced font for code */
+}
+
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.copy-btn:hover {
+    background-color: #0056b3;
 }
