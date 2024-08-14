@@ -1,30 +1,93 @@
-.container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center; /* Center align everything */
 }
 
-img {
-    max-width: 200px;  /* Set maximum width for the image */
-    height: auto;      /* Maintain aspect ratio */
-    display: block;
-    margin: 20px auto; /* Center the image and add some margin */
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #2d3e50;
+    margin-bottom: 10px;
 }
 
-input[type="text"], input[type="number"] {
+h2.subtitle {
+    font-size: 1.2em;
+    color: #5a6e8c;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 40%; /* Adjust the width to make it more balanced on larger screens */
     padding: 10px;
     margin: 10px 0;
-    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
 }
 
-.btn {
+button.btn {
+    background-color: #28a745;
+    color: #fff;
     padding: 10px 20px;
-    margin: 10px 0;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
     border: none;
     border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px; /* Fixed button width */
+    margin: 10px auto; /* Center the button */
+    display: block; /* Ensure the button stays centered */
+}
+
+button.btn:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 80%; /* Adjusted table width */
+    margin: 0 auto 20px auto; /* Center the table and add bottom margin */
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table thead {
+    background-color: #28a745;
+    color: #fff;
+}
+
+table thead th {
+    padding: 10px;
+    font-weight: normal;
+    font-size: 1em;
+}
+
+table tbody td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 0.95em;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
 }
 
 ul {
@@ -32,9 +95,16 @@ ul {
     padding: 0;
 }
 
-li {
-    background-color: #f9f9f9;
-    margin: 5px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
+ul li {
+    margin: 10px 0;
+    font-size: 1em;
+    color: #e74c3c;
+}
+
+img.logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

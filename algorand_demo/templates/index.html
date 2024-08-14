@@ -6,90 +6,89 @@
     <title>Algorand Demo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/jpg">
 </head>
 <body>
-    <div class="container">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
-        <h1>Algorand Demo</h1>
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+    <h1>Algorand Demo</h1>
+    <h2 class="subtitle">Welcome to the Algorand Journey</h2> <!-- Subtitle -->
 
-        <form action="/generate_account" method="post">
-            <button type="submit" class="btn">Generate Account</button>
-        </form>
+    <form action="/generate_account" method="post">
+        <button type="submit" class="btn">Generate Account</button>
+    </form>
 
-        <form action="/fund_account" method="post">
-            <input type="text" name="address" placeholder="Account Address" required>
-            <button type="submit" class="btn">Fund Account</button>
-        </form>
+    <form action="/fund_account" method="post">
+        <input type="text" name="address" placeholder="Account Address" required>
+        <button type="submit" class="btn">Fund Account</button>
+    </form>
 
-        <form action="/create_asa" method="post">
-            <input type="text" name="creator_address" placeholder="Creator Account Address" required>
-            <button type="submit" class="btn">Create ASA</button>
-        </form>
-        
+    <form action="/create_asa" method="post">
+        <input type="text" name="creator_address" placeholder="Creator Account Address" required>
+        <button type="submit" class="btn">Create ASA</button>
+    </form>
+    
+    <form action="/generate_receiver_account" method="post">
+        <button type="submit" class="btn">Generate Receiver Account</button>
+    </form>
 
-        <form action="/generate_receiver_account" method="post">
-            <button type="submit" class="btn">Generate Receiver Account</button>
-        </form>
+    <form action="/opt_in_asa" method="post">
+        <input type="text" name="receiver_address" placeholder="Receiver Account Address" required>
+        <button type="submit" class="btn">Opt-In ASA</button>
+    </form>
 
-        <form action="/opt_in_asa" method="post">
-            <input type="text" name="receiver_address" placeholder="Receiver Account Address" required>
-            <button type="submit" class="btn">Opt-In ASA</button>
-        </form>
+    <form action="/transfer_asa" method="post">
+        <input type="text" name="sender_address" placeholder="Sender Address" required>
+        <input type="text" name="receiver_address" placeholder="Receiver Address" required>
+        <input type="number" name="amount" placeholder="Amount to Transfer" required>
+        <button type="submit" class="btn">Transfer ASA</button>
+    </form>
 
-        <form action="/transfer_asa" method="post">
-            <input type="text" name="sender_address" placeholder="Sender Address" required>
-            <input type="text" name="receiver_address" placeholder="Receiver Address" required>
-            <input type="number" name="amount" placeholder="Amount to Transfer" required>
-            <button type="submit" class="btn">Transfer ASA</button>
-        </form>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-
-        {% if data %}
-        <h2>Blockchain Activity Record</h2>
-        <table id="dataTable">
-            <thead>
-                <tr>
-                    <th>Transaction ID</th>
-                    <th>Account Address</th>
-                    <th>State</th>
-                    <th>Asset ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for tx_id, account_address, state, asset_id in data | reverse %}
-                <tr>
-                    <td>
-                        {% if tx_id %}
-                            <a href="https://lora.algokit.io/localnet/transaction/{{ tx_id }}" target="_blank">{{ tx_id }}</a>
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="https://lora.algokit.io/localnet/account/{{ account_address }}" target="_blank">{{ account_address }}</a>
-                    </td>
-                    <td>{{ state }}</td>
-                    <td>
-                        {% if asset_id %}
-                            <a href="https://lora.algokit.io/localnet/asset/{{ asset_id }}" target="_blank">{{ asset_id }}</a>
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
         {% endif %}
-    </div>
+    {% endwith %}
+
+    {% if data %}
+    <h2>Blockchain Activity Record</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Account Address</th>
+                <th>State</th>
+                <th>Asset ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tx_id, account_address, state, asset_id in data | reverse %}
+            <tr>
+                <td>
+                    {% if tx_id %}
+                        <a href="https://lora.algokit.io/localnet/transaction/{{ tx_id }}" target="_blank">{{ tx_id }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="https://lora.algokit.io/localnet/account/{{ account_address }}" target="_blank">{{ account_address }}</a>
+                </td>
+                <td>{{ state }}</td>
+                <td>
+                    {% if asset_id %}
+                        <a href="https://lora.algokit.io/localnet/asset/{{ asset_id }}" target="_blank">{{ asset_id }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 </body>
 </html>
