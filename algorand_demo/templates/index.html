@@ -61,10 +61,11 @@
                     <th>Transaction ID</th>
                     <th>Account Address</th>
                     <th>State</th>
+                    <th>Asset ID</th>
                 </tr>
             </thead>
             <tbody>
-                {% for tx_id, account_address, state in data | reverse %}
+                {% for tx_id, account_address, state, asset_id in data | reverse %}
                 <tr>
                     <td>
                         {% if tx_id %}
@@ -77,6 +78,13 @@
                         <a href="https://lora.algokit.io/localnet/account/{{ account_address }}" target="_blank">{{ account_address }}</a>
                     </td>
                     <td>{{ state }}</td>
+                    <td>
+                        {% if asset_id %}
+                            <a href="https://lora.algokit.io/localnet/asset/{{ asset_id }}" target="_blank">{{ asset_id }}</a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

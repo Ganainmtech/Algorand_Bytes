@@ -7,7 +7,7 @@ app.secret_key = 'your_secret_key'
 # Initialize AlgorandActions
 algo = AlgorandActions()
 
-# This will store a list of tuples for tx_id, account_address, and state
+# This will store a list of tuples for tx_id, account_address, state, and asset_id
 blockchain_activity = []
 
 @app.route('/')
@@ -20,8 +20,8 @@ def generate_account():
     account_address = algo.generate_account()
     flash(f"Generated Account Address: {account_address}")
     
-    # Store the account creation as an activity (no tx_id here)
-    blockchain_activity.append((None, account_address, 'Account Created'))
+    # Store the account creation as an activity (no tx_id or asset_id here)
+    blockchain_activity.append((None, account_address, 'Account Created', None))
     
     return redirect(url_for('index'))
 
@@ -32,7 +32,7 @@ def fund_account():
     flash(f"Funded Account: {address} with Transaction ID: {tx_id}")
     
     # Store the funding as an activity
-    blockchain_activity.append((tx_id, address, 'Account Funded'))
+    blockchain_activity.append((tx_id, address, 'Account Funded', None))
     
     return redirect(url_for('index'))
 
@@ -45,7 +45,7 @@ def create_asa():
         flash(f"Created ASA with Asset ID: {asset_id} and Transaction ID: {tx_id}")
         
         # Store the ASA creation as an activity
-        blockchain_activity.append((tx_id, f'ASA {asset_id}', 'ASA Created'))
+        blockchain_activity.append((tx_id, creator_address, 'ASA Created', asset_id))
     except Exception as e:
         flash(f"Error creating ASA: {str(e)}")
     
@@ -56,8 +56,8 @@ def generate_receiver_account():
     account_address = algo.generate_account()
     flash(f"Generated Receiver Account Address: {account_address}")
     
-    # Store the receiver account creation as an activity (no tx_id here)
-    blockchain_activity.append((None, account_address, 'Receiver Account Created'))
+    # Store the receiver account creation as an activity (no tx_id or asset_id here)
+    blockchain_activity.append((None, account_address, 'Receiver Account Created', None))
     
     return redirect(url_for('index'))
 
@@ -70,7 +70,7 @@ def opt_in_asa():
         flash(f"Opted Receiver Account {receiver_address} into ASA with Transaction ID: {tx_id}")
         
         # Store the opt-in as an activity
-        blockchain_activity.append((tx_id, receiver_address, 'Opted-in ASA'))
+        blockchain_activity.append((tx_id, receiver_address, 'Opted-in ASA', algo.asset_id))
     except Exception as e:
         flash(f"Error opting in ASA: {str(e)}")
     
@@ -87,7 +87,7 @@ def transfer_asa():
         flash(f"Transferred {amount} units from {sender_address} to {receiver_address} with Transaction ID: {tx_id}")
         
         # Store the transfer as an activity
-        blockchain_activity.append((tx_id, receiver_address, f'Transferred {amount} ASA'))
+        blockchain_activity.append((tx_id, sender_address, f'Transferred {amount} ASA', algo.asset_id))
     except Exception as e:
         flash(f"Error transferring ASA: {str(e)}")
     
