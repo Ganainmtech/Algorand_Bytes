@@ -21,60 +21,87 @@
         <pre><code class="language-python" id="introCode">
 # Import the AlgorandClient class from the Algokit utilities library,
 # This class provides methods to interact with the Algorand blockchain.
-from <span class="token custom-class">algokit_utils.beta.algorand_client</span> import <span class="token custom-class">AlgorandClient</span>
+from algokit_utils.beta.algorand_client import AlgorandClient
 
 # Initialize an Algorand client connected to the default local network
-algorand = <span class="token custom-class">AlgorandClient</span>.<span class="token custom-function">default_local_net</span>()
+algorand = AlgorandClient.default_local_net()
         </code></pre>
         <button class="copy-btn" onclick="copyCode('introCode')">Copy Code</button>
         <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/00_localnetSetup.py" target="_blank">
             <button class="source-btn">Source</button>
         </a>
     </div>
-
-    <!-- Generate Account Section -->
-    <div class="code-container">
-        <pre><code class="language-python" id="generateAccountCode">
+<!-- Generate Account Section -->
+<div class="code-container">
+    <pre><code class="language-python" id="generateAccountCode">
 # Create a new random account
-accountOne = algorand.<span class="token custom-method">account</span>.<span class="token custom-function">random</span>()
-        </code></pre>
-        <button class="copy-btn" onclick="copyCode('generateAccountCode')">Copy Code</button>
-        <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/01_genAccount.py" target="_blank">
-            <button class="source-btn">Source</button>
-        </a>
-    </div>
-    <form action="/generate_account" method="post">
-        <button type="submit" class="btn">Generate Account</button>
-    </form>
+accountOne = algorand.account.random()
+    </code></pre>
+    <button class="copy-btn" onclick="copyCode('generateAccountCode')">Copy Code</button>
+    <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/01_genAccount.py" target="_blank">
+        <button class="source-btn">Source</button>
+    </a>
+</div>
 
-    <!-- Fund Account Section -->
-    <div class="code-container">
-        <pre><code class="language-python" id="fundAccountCode">
+<!-- Generate Account Form -->
+<form action="/generate_account" method="post">
+    <button type="submit" class="btn">Generate Account</button>
+
+    <!-- Flash message only for "Generate Account" -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    {% if category == 'generate_account' or category == 'generate_account_error' %}
+                        <li>{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</form>
+
+<!-- Fund Account Section -->
+<div class="code-container">
+    <pre><code class="language-python" id="fundAccountCode">
 # Fund an existing account with Algos
-algorand.<span class="token custom-method">send</span>.<span class="token custom-method">payment</span>(
-    <span class="token custom-class">PayParams</span>(
+algorand.send.payment(
+    PayParams(
         sender=dispenser.address,
         receiver=accountOne.address,
         amount=10_000_000  # Fund with 10 Algos
     )
 )
-        </code></pre>
-        <button class="copy-btn" onclick="copyCode('fundAccountCode')">Copy Code</button>
-        <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/02_fundAccount.py" target="_blank">
-            <button class="source-btn">Source</button>
-        </a>
-    </div>
-    <form action="/fund_account" method="post">
-        <input type="text" name="address" placeholder="Account Address" required>
-        <button type="submit" class="btn">Fund Account</button>
-    </form>
+    </code></pre>
+    <button class="copy-btn" onclick="copyCode('fundAccountCode')">Copy Code</button>
+    <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/02_fundAccount.py" target="_blank">
+        <button class="source-btn">Source</button>
+    </a>
+</div>
+<form action="/fund_account" method="post">
+    <input type="text" name="address" placeholder="Account Address" required>
+    <button type="submit" class="btn">Fund Account</button>
 
-    <!-- Create ASA Section -->
-    <div class="code-container">
-        <pre><code class="language-python" id="createAsaCode">
+    <!-- Flash message only for "Fund Account" -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    {% if category == 'fund_account' or category == 'fund_account_error' %}
+                        <li>{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</form>
+
+<!-- Create ASA Section -->
+<div class="code-container">
+    <pre><code class="language-python" id="createAsaCode">
 # Create a new Algorand Standard Asset (ASA)
-sent_txn = algorand.<span class="token custom-method">send</span>.<span class="token custom-method">asset_create</span>(
-    <span class="token custom-class">AssetCreateParams</span>(
+sent_txn = algorand.send.asset_create(
+    AssetCreateParams(
         sender=accountOne.address,
         total=1000,
         asset_name="algofam",
@@ -87,95 +114,102 @@ sent_txn = algorand.<span class="token custom-method">send</span>.<span class="t
 
 # Extract the Asset ID from the transaction confirmation
 asset_id = sent_txn["confirmation"]["asset-index"]
-        </code></pre>
-        <button class="copy-btn" onclick="copyCode('createAsaCode')">Copy Code</button>
-        <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/03_createAsset.py" target="_blank">
-            <button class="source-btn">Source</button>
-        </a>
-    </div>
-    <form action="/create_asa" method="post">
-        <input type="text" name="creator_address" placeholder="Creator Account Address" required>
-        <button type="submit" class="btn">Create ASA</button>
-    </form>
+    </code></pre>
+    <button class="copy-btn" onclick="copyCode('createAsaCode')">Copy Code</button>
+    <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/03_createAsset.py" target="_blank">
+        <button class="source-btn">Source</button>
+    </a>
+</div>
+<form action="/create_asa" method="post">
+    <input type="text" name="creator_address" placeholder="Creator Account Address" required>
+    <button type="submit" class="btn">Create ASA</button>
 
-    <!-- Generate Receiver Account Section -->
-    <div class="code-container">
-        <pre><code class="language-python" id="generateReceiverAccountCode">
-# Create and fund another new account (receiver)
-accountTwo = algorand.<span class="token custom-method">account</span>.<span class="token custom-function">random</span>()
-algorand.<span class="token custom-method">send</span>.<span class="token custom-method">payment</span>(
-    <span class="token custom-class">PayParams</span>(
-        sender=dispenser.address,
-        receiver=accountTwo.address,
-        amount=10_000_000  # Fund with 10 Algos
-    )
-)
-        </code></pre>
-        <button class="copy-btn" onclick="copyCode('generateReceiverAccountCode')">Copy Code</button>
-        <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/01_genAccount.py" target="_blank">
-            <button class="source-btn">Source</button>
-        </a>
-    </div>
-    <form action="/generate_receiver_account" method="post">
-        <button type="submit" class="btn">Generate Receiver Account</button>
-    </form>
+    <!-- Flash message only for "Create ASA" -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    {% if category == 'create_asa' or category == 'create_asa_error' %}
+                        <li>{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</form>
 
-    <!-- Opt-In ASA Section -->
-    <div class="code-container">
-        <pre><code class="language-python" id="optInAsaCode">
+<!-- Opt-In ASA Section -->
+<div class="code-container">
+    <pre><code class="language-python" id="optInAsaCode">
 # Opt-in the receiver account to the newly created ASA
-algorand.<span class="token custom-method">send</span>.<span class="token custom-method">asset_opt_in</span>(
-    <span class="token custom-class">AssetOptInParams</span>(
+algorand.send.asset_opt_in(
+    AssetOptInParams(
         sender=accountTwo.address,
         asset_id=asset_id
     )
 )
-        </code></pre>
-        <button class="copy-btn" onclick="copyCode('optInAsaCode')">Copy Code</button>
-        <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/04_optinAsset.py" target="_blank">
-            <button class="source-btn">Source</button>
-        </a>
-    </div>
-    <form action="/opt_in_asa" method="post">
-        <input type="text" name="receiver_address" placeholder="Receiver Account Address" required>
-        <button type="submit" class="btn">Opt-In ASA</button>
-    </form>
+    </code></pre>
+    <button class="copy-btn" onclick="copyCode('optInAsaCode')">Copy Code</button>
+    <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/04_optinAsset.py" target="_blank">
+        <button class="source-btn">Source</button>
+    </a>
+</div>
+<form action="/opt_in_asa" method="post">
+    <input type="text" name="receiver_address" placeholder="Receiver Account Address" required>
+    <button type="submit" class="btn">Opt-In ASA</button>
 
-    <!-- Transfer ASA Section -->
-    <div class="code-container">
-        <pre><code class="language-python" id="transferAsaCode">
+    <!-- Flash message only for "Opt-In ASA" -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    {% if category == 'opt_in_asa' or category == 'opt_in_asa_error' %}
+                        <li>{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</form>
+
+<!-- Transfer ASA Section -->
+<div class="code-container">
+    <pre><code class="language-python" id="transferAsaCode">
 # Transfer 10 units of the ASA from creator to receiver
-algorand.<span class="token custom-method">send</span>.<span class="token custom-method">asset_transfer</span>(
-    <span class="token custom-class">AssetTransferParams</span>(
+algorand.send.asset_transfer(
+    AssetTransferParams(
         sender=accountOne.address,
         receiver=accountTwo.address,
         asset_id=asset_id,
         amount=10  # Transfer amount
     )
 )
-        </code></pre>
-        <button class="copy-btn" onclick="copyCode('transferAsaCode')">Copy Code</button>
-        <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/06_transferAsset.py" target="_blank">
-            <button class="source-btn">Source</button>
-        </a>
-    </div>
-    <form action="/transfer_asa" method="post">
-        <input type="text" name="sender_address" placeholder="Sender Address" required>
-        <input type="text" name="receiver_address" placeholder="Receiver Address" required>
-        <input type="number" name="amount" placeholder="Amount to Transfer" required>
-        <button type="submit" class="btn">Transfer ASA</button>
-    </form>
+    </code></pre>
+    <button class="copy-btn" onclick="copyCode('transferAsaCode')">Copy Code</button>
+    <a href="https://github.com/Ganainmtech/Algorand_Bytes/blob/main/localnet_examples/Beginner/06_transferAsset.py" target="_blank">
+        <button class="source-btn">Source</button>
+    </a>
+</div>
+<form action="/transfer_asa" method="post">
+    <input type="text" name="sender_address" placeholder="Sender Address" required>
+    <input type="text" name="receiver_address" placeholder="Receiver Address" required>
+    <input type="number" name="amount" placeholder="Amount to Transfer" required>
+    <button type="submit" class="btn">Transfer ASA</button>
 
-    <!-- Display flash messages -->
-    {% with messages = get_flashed_messages() %}
+    <!-- Flash message only for "Transfer ASA" -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    {% if category == 'transfer_asa' or category == 'transfer_asa_error' %}
+                        <li>{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         {% endif %}
     {% endwith %}
+</form>
+
 
     <!-- Display blockchain activity record -->
     {% if data %}
