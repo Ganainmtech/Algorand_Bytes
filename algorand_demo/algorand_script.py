@@ -29,20 +29,20 @@ class AlgorandActions:
         tx_id = fund_account_txn.get("tx_id")
         return tx_id
         
-    def create_asa(self, creator_address):
+    def create_asa(self, creator_address, total, asset_name="Algofam", unit_name="FAM"):
         # Retrieve the account object using the address
         account = self.accounts.get(creator_address)
         
         if account is None:
             raise ValueError(f"No account found for address {creator_address}")
         
-        # Send the asset creation transaction
+        # Send the asset creation transaction with the user-defined total amount
         create_asset_txn = self.algorand.send.asset_create(
             AssetCreateParams(
                 sender=account.address,  # Use the account address directly
-                total=50,
-                asset_name="Algofam",
-                unit_name="FAM",
+                total=total,  # Use the total amount provided by the user
+                asset_name=asset_name,
+                unit_name=unit_name,
                 manager=account.address,  
                 clawback=account.address,
                 freeze=account.address

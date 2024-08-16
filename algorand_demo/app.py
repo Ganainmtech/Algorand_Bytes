@@ -41,9 +41,11 @@ def fund_account():
 @app.route('/create_asa', methods=['POST'])
 def create_asa():
     creator_address = request.form.get('creator_address')
+    total = int(request.form.get('total'))  # Get the user total supply
     
     try:
-        asset_id, tx_id = algo.create_asa(creator_address)
+        # Call the create_asa method with the dynamic total supply
+        asset_id, tx_id = algo.create_asa(creator_address, total)
         flash(f"Created ASA with Asset ID: {asset_id} and Transaction ID: {tx_id}", "create_asa")
         
         # Store the ASA creation as an activity

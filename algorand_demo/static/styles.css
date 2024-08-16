@@ -119,7 +119,7 @@ h1, h2 {
 }
 
 .flash-messages li {
-    background-color: #ffdddd;
+    background-color: None;
     padding: 10px;
     margin-bottom: 5px;
     border: 1px solid #d8000c;
