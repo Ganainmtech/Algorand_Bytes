@@ -1,19 +1,20 @@
 /* Base Styles */
-
 body {
-    font-family: Roboto, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #E7FAF9 0%, #D1F4F4 100%);
     margin: 0;
     padding: 20px;
     text-align: center;
 }
 
 h1, h2 {
-    color: #333;
+    color: #001324;
+    font-weight: 700;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .subtitle {
-    color: #555;
+    color: #333;
     margin-bottom: 20px;
 }
 
@@ -25,52 +26,64 @@ h1, h2 {
 .code-container {
     margin: 20px auto;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: #ffffff;
     border-radius: 8px;
     width: 80%;
     max-width: 800px;
     position: relative;
     text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.code-container:hover {
+    transform: scale(1.02);
 }
 
 .copy-btn, .source-btn {
     margin: 10px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    background-color: #0078d4;
+    background-color: #17CAC6;
     color: white;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: 500;
 }
 
 .copy-btn:hover, .source-btn:hover {
     background-color: #005a9e;
+    transform: scale(1.05);
 }
 
 /* Menu Bar Styles */
 .menu-bar {
     display: flex;
     justify-content: center;
-    background-color: #0078d4;
-    padding: 10px 0;
+    background: linear-gradient(to right, #2D2DF1, #17CAC6);
+    padding: 15px 0;
     margin-bottom: 20px;
     border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .menu-bar button {
     margin: 0 10px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    background-color: #fff;
-    color: #0078d4;
+    background-color: #ffffff;
+    color: #2D2DF1;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    font-weight: 500;
 }
 
 .menu-bar button.active, .menu-bar button:hover {
-    background-color: #005a9e;
-    color: #fff;
+    background-color: #17CAC6;
+    color: #ffffff;
+    transform: scale(1.05);
 }
 
 /* Forms */
@@ -89,25 +102,35 @@ h1, h2 {
 
 .action-forms input {
     margin: 10px;
-    padding: 10px;
+    padding: 12px;
     width: 80%;
     max-width: 300px;
-    border: 1px solid #ccc;
+    border: 1px solid #D1F4F4;
     border-radius: 5px;
+    background-color: #ffffff;
+    transition: border-color 0.3s;
+}
+
+.action-forms input:focus {
+    border-color: #2D2DF1;
+    outline: none;
 }
 
 .action-forms button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    background-color: #0078d4;
+    background-color: #2D2DF1;
     color: white;
     cursor: pointer;
     border-radius: 5px;
     margin-top: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: 500;
 }
 
 .action-forms button:hover {
-    background-color: #005a9e;
+    background-color: #17CAC6;
+    transform: scale(1.05);
 }
 
 /* Flash Messages */
@@ -119,11 +142,12 @@ h1, h2 {
 }
 
 .flash-messages li {
-    background-color: None;
+    background-color: #ffffff;
     padding: 10px;
     margin-bottom: 5px;
     border: 1px solid #d8000c;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Data Table */
@@ -135,22 +159,32 @@ table {
 }
 
 table thead {
-    background-color: #28a745;
-    color: #fff;
+    background: linear-gradient(to right, #2D2DF1, #17CAC6);
+    color: #ffffff;
 }
 
 table thead th {
-    padding: 10px;
-    font-weight: normal;
+    padding: 12px;
+    font-weight: 600;
     font-size: 1em;
+    text-align: left;
 }
 
 table tbody td {
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    border: 1px solid #D1F4F4;
     font-size: 0.95em;
+    transition: background-color 0.3s;
 }
 
 table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+table tbody tr:hover {
+    background-color: #e0f7f7;
 }
