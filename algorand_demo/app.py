@@ -18,42 +18,38 @@ def index():
 def generate_account():
     try:
         account_address = algo.generate_account()
-        flash(f"Generated Account Address: {account_address}", "generate_account")
-        
-        # Store the account creation as an activity (no tx_id or asset_id here)
         blockchain_activity.append((None, account_address, 'Account Created', None))
+        flash(f"Generated Account Address: {account_address}", 'success')
+        return redirect(url_for('index'))
     except Exception as e:
-        flash(f"Error generating account: {str(e)}", "generate_account_error")
-    
-    return redirect(url_for('index'))
+        flash(f"Error generating account: {str(e)}", 'error')
+        return redirect(url_for('index'))
 
 @app.route('/fund_account', methods=['POST'])
 def fund_account():
     address = request.form.get('address')
-    tx_id = algo.fund_account(address)
-    flash(f"Funded Account: {address} with Transaction ID: {tx_id}", "fund_account")
-    
-    # Store the funding as an activity
-    blockchain_activity.append((tx_id, address, 'Account Funded', None))
-    
-    return redirect(url_for('index'))
+    try:
+        tx_id = algo.fund_account(address)
+        blockchain_activity.append((tx_id, address, 'Account Funded', None))
+        flash(f"Funded Account: {address}", 'success')
+        return redirect(url_for('index'))
+    except Exception as e:
+        flash(f"Error funding account: {str(e)}", 'error')
+        return redirect(url_for('index'))
 
 @app.route('/create_asa', methods=['POST'])
 def create_asa():
     creator_address = request.form.get('creator_address')
-    total = int(request.form.get('total'))  # Get the user total supply
+    total = int(request.form.get('total'))
     
     try:
-        # Call the create_asa method with the dynamic total supply
         asset_id, tx_id = algo.create_asa(creator_address, total)
-        flash(f"Created ASA with Asset ID: {asset_id} and Transaction ID: {tx_id}", "create_asa")
-        
-        # Store the ASA creation as an activity
         blockchain_activity.append((tx_id, creator_address, 'ASA Created', asset_id))
+        flash(f"Created ASA with Asset ID: {asset_id} and a total of {total}", 'success')
+        return redirect(url_for('index'))
     except Exception as e:
-        flash(f"Error creating ASA: {str(e)}", "create_asa_error")
-    
-    return redirect(url_for('index'))
+        flash(f"Error creating ASA: {str(e)}", 'error')
+        return redirect(url_for('index'))
 
 @app.route('/opt_in_asa', methods=['POST'])
 def opt_in_asa():
@@ -61,7 +57,7 @@ def opt_in_asa():
     
     try:
         tx_id = algo.opt_in_asa(receiver_address)
-        flash(f"Opted Receiver Account {receiver_address} into ASA with Transaction ID: {tx_id}", "opt_in_asa")
+        flash(f"Opted Receiver Account {receiver_address} into ASA", "opt_in_asa")
         
         # Store the opt-in as an activity
         blockchain_activity.append((tx_id, receiver_address, 'Opted-in ASA', algo.asset_id))
@@ -78,7 +74,7 @@ def transfer_asa():
     
     try:
         tx_id = algo.transfer_asa(sender_address, receiver_address, amount)
-        flash(f"Transferred {amount} units from {sender_address} to {receiver_address} with Transaction ID: {tx_id}", "transfer_asa")
+        flash(f"Transferred {amount} units from {sender_address} to {receiver_address}", "transfer_asa")
         
         # Store the transfer as an activity
         blockchain_activity.append((tx_id, sender_address, f'Transferred {amount} ASA', algo.asset_id))

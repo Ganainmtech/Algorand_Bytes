@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algorand Demo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/jpg">
 </head>
-
 <body>
-    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
-    <h1>Algorand Demo</h1>
-    <h2 class="subtitle">Welcome to the Algorand Journey</h2>
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+        <h1>Algorand Demo</h1>
+        <h2 class="subtitle">Welcome to the Algorand Journey</h2>
+        <p class="intro-text">Start your journey with Algorand by learning how to generate accounts, fund them, create and transfer assets.</p>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <ul class="progress-steps">
+                <li class="step" data-step="1">Generate Account</li>
+                <li class="step" data-step="2">Fund Account</li>
+                <li class="step" data-step="3">Create ASA</li>
+                <li class="step" data-step="4">Create Another Account</li>
+                <li class="step" data-step="5">Fund Second Account</li>
+                <li class="step" data-step="6">Opt-In ASA</li>
+                <li class="step" data-step="7">Transfer ASA</li>
+            </ul>
+        </div>
+
+        <button class="cta-btn" onclick="startJourney()">Start Learning</button>
+        <div id="flashMessage" style="display:none; color: #17CAC6; margin-top: 20px;"></div>
+    </section>
 
     <!-- Menu Bar -->
     <div class="menu-bar">
@@ -29,7 +48,7 @@
     <!-- Main Dynamic Code Container -->
     <div class="code-container">
         <pre><code class="language-python" id="mainCodeBox">
-        # Select an action to view the code snippet
+# Select an action to view the code snippet
         </code></pre>
         <button class="copy-btn" id="copyBtn">Copy Code</button>
         <a id="sourceLink" href="#" target="_blank">
@@ -73,15 +92,15 @@
     </div>
 
     <!-- Flash messages for feedback -->
-    {% with messages = get_flashed_messages(with_categories=True) %}
-    {% if messages %}
     <ul class="flash-messages">
-        {% for category, message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <li class="flash-message {{ category }}">{{ message }}</li>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </ul>
-    {% endif %}
-    {% endwith %}
 
     <!-- Display blockchain activity record -->
     {% if data %}
@@ -95,7 +114,7 @@
                 <th>Asset ID</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="blockchainActivityTableBody">
             {% for tx_id, account_address, state, asset_id in data | reverse %}
             <tr>
                 <td>
@@ -123,16 +142,5 @@
     {% endif %}
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        function showForm(formId) {
-            // Hide all forms
-            const forms = document.querySelectorAll('.action-forms form');
-            forms.forEach(form => form.style.display = 'none');
-            
-            // Show the selected form
-            document.getElementById(formId).style.display = 'block';
-        }
-    </script>
 </body>
-
 </html>

@@ -61,8 +61,104 @@ function showForm(formId) {
     document.getElementById(formId).style.display = 'block';
 }
 
+// Initialize currentStep
+let currentStep = 0;
+
+// Start journey and show flash message
+function startJourney() {
+    currentStep = 1;
+    updateProgress();
+
+    // Show flash message
+    const flashMessage = document.getElementById('flashMessage');
+    flashMessage.textContent = "Your journey has started! Hint: Generate your account.";
+    flashMessage.style.display = 'block';
+    
+    // Hide flash message after 3 seconds
+    setTimeout(() => {
+        flashMessage.style.display = 'none';
+    }, 3000);
+}
+
+// Move to the next step only if it's the expected step
+function nextStep(expectedStep) {
+    if (currentStep === expectedStep) {
+        currentStep++;
+        updateProgress();
+        return true;  // Allow form submission
+    } else {
+        alert("Please complete the current step before proceeding.");
+        return false;  // Prevent form submission
+    }
+}
+
+// Update progress bar and steps
+function updateProgress() {
+    const progressBar = document.getElementById('progressBar');
+    const steps = document.querySelectorAll('.step');
+
+    // Update progress bar width
+    progressBar.style.width = (currentStep - 1) * (100 / (steps.length - 1)) + "%";
+
+    // Update active step
+    steps.forEach((step, index) => {
+        if (index < currentStep) {
+            step.classList.add('active');
+        } else {
+            step.classList.remove('active');
+        }
+    });
+
+    // Save current step to localStorage
+    localStorage.setItem('currentStep', currentStep);
+}
+
+// Function to update blockchain activity table (can be called on page load or other events)
+function updateBlockchainActivity(activity) {
+    const activityTable = document.getElementById('blockchainActivityTableBody');
+    activityTable.innerHTML = ''; // Clear existing rows
+
+    activity.forEach(([tx_id, account_address, state, asset_id]) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${tx_id || '-'}</td>
+            <td>${account_address || '-'}</td>
+            <td>${state || '-'}</td>
+            <td>${asset_id || '-'}</td>
+        `;
+        activityTable.appendChild(row);
+    });
+}
+
+// Function to initialize form submission handlers
+function initializeFormHandlers() {
+    const forms = document.querySelectorAll('.action-forms form');
+    forms.forEach((form, index) => {
+        form.addEventListener('submit', function(event) {
+            console.log('Generate Account button clicked');
+            
+            if (!nextStep(index + 1)) {
+                event.preventDefault(); // Prevent submission if not ready
+            } else {
+                console.log('Form is being submitted');  // Check if submission is allowed
+                form.submit();  // Ensure form submission
+            }
+        });
+    });
+}
+
 // Ensure the JavaScript executes after the DOM has loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Load saved progress from localStorage
+    const savedStep = localStorage.getItem('currentStep');
+    if (savedStep) {
+        currentStep = parseInt(savedStep, 10);
+        updateProgress();
+    }
+
+    // Initialize form handlers
+    initializeFormHandlers();
+
     // Add event listeners to menu buttons
     document.getElementById('generateAccountBtn').addEventListener('click', () => handleMenuClick('generateAccount'));
     document.getElementById('fundAccountBtn').addEventListener('click', () => handleMenuClick('fundAccount'));
