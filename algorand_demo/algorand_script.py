@@ -23,7 +23,8 @@ class AlgorandActions:
             PayParams(
                 sender=self.dispenser.address,
                 receiver=address,
-                amount=10_000_000
+                amount=10_000_000,
+                last_valid_round=999
             )
         )
         tx_id = fund_account_txn.get("tx_id")
@@ -45,7 +46,8 @@ class AlgorandActions:
                 unit_name=unit_name,
                 manager=account.address,  
                 clawback=account.address,
-                freeze=account.address
+                freeze=account.address,
+                last_valid_round=999
             )
         )
         
@@ -64,7 +66,8 @@ class AlgorandActions:
         opt_in_txn = self.algorand.send.asset_opt_in(
             AssetOptInParams(
                 sender=receiver_address,
-                asset_id=self.asset_id
+                asset_id=self.asset_id,
+                last_valid_round=999
             )
         )
         tx_id = opt_in_txn.get("tx_id")
@@ -83,7 +86,8 @@ class AlgorandActions:
                 sender=sender_address,
                 receiver=receiver_address,
                 asset_id=self.asset_id,
-                amount=amount
+                amount=amount,
+                last_valid_round=999
             )
         )
         tx_id = transfer_asa_txn.get("tx_id")

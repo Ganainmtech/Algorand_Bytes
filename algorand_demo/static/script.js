@@ -24,6 +24,7 @@ const codeSnippets = {
 
 // Initialize currentStep and define the exact steps
 let currentStep = 0;
+let learningGuideActive = true; // Track if the learning guide is active
 const steps = [
     'generateAccount',
     'fundAccount',
@@ -75,14 +76,46 @@ function showForm(formId) {
 
 // Start journey and show flash message
 function startJourney() {
-    currentStep = 0;
+    currentStep = 0; // Start from the first step
+    learningGuideActive = true; // Enable learning guide
     updateProgress();
 
+    // Save state to localStorage
+    localStorage.setItem('learningGuideActive', 'true');
+    localStorage.setItem('currentStep', currentStep);
+
     // Show flash message
+    showFlashMessage("Your journey has started! Hint: Generate your account.");
+}
+
+// Function to toggle learning guide
+function toggleLearningGuide() {
+    learningGuideActive = !learningGuideActive;
+
+    if (!learningGuideActive) {
+        showFlashMessage("Learning guide off, have fun!");
+        // Hide the progress bar when the guide is off
+        document.querySelector('.progress-container').style.display = 'none';
+        // Reset progress
+        currentStep = 0;
+    } else {
+        showFlashMessage("Learning guide on, follow the steps!");
+        // Show the progress bar when the guide is on
+        document.querySelector('.progress-container').style.display = 'block';
+    }
+
+    // Save state to localStorage
+    localStorage.setItem('learningGuideActive', learningGuideActive.toString());
+    localStorage.setItem('currentStep', currentStep);
+    updateProgress();
+}
+
+// Function to show flash messages
+function showFlashMessage(message) {
     const flashMessage = document.getElementById('flashMessage');
-    flashMessage.textContent = "Your journey has started! Hint: Generate your account.";
+    flashMessage.textContent = message;
     flashMessage.style.display = 'block';
-    
+
     // Hide flash message after 3 seconds
     setTimeout(() => {
         flashMessage.style.display = 'none';
@@ -91,7 +124,7 @@ function startJourney() {
 
 // Move to the next step only if it's the expected step
 function nextStep(action) {
-    if (steps[currentStep] === action) {
+    if (!learningGuideActive || steps[currentStep] === action) {
         currentStep++;
         updateProgress();
         return true;  // Allow form submission
@@ -106,17 +139,25 @@ function updateProgress() {
     const progressBar = document.getElementById('progressBar');
     const stepsElements = document.querySelectorAll('.step');
 
-    // Update progress bar width
-    progressBar.style.width = (currentStep) * (100 / (steps.length)) + "%";
+    if (learningGuideActive) {
+        // Update progress bar width
+        progressBar.style.width = (currentStep) * (100 / (steps.length)) + "%";
 
-    // Update active step
-    stepsElements.forEach((step, index) => {
-        if (index < currentStep) {
-            step.classList.add('active');
-        } else {
-            step.classList.remove('active');
-        }
-    });
+        // Update active step
+        stepsElements.forEach((step, index) => {
+            if (index < currentStep) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
+
+        // Show the progress container
+        document.querySelector('.progress-container').style.display = 'block';
+    } else {
+        // Hide the progress container
+        document.querySelector('.progress-container').style.display = 'none';
+    }
 
     // Save current step to localStorage
     localStorage.setItem('currentStep', currentStep);
@@ -157,12 +198,19 @@ function initializeFormHandlers() {
 
 // Ensure the JavaScript executes after the DOM has loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Load saved progress from localStorage
+    // Load saved state from localStorage
     const savedStep = localStorage.getItem('currentStep');
+    const savedGuideState = localStorage.getItem('learningGuideActive');
+
     if (savedStep) {
         currentStep = parseInt(savedStep, 10);
-        updateProgress();
     }
+
+    if (savedGuideState !== null) {
+        learningGuideActive = savedGuideState === 'true';
+    }
+
+    updateProgress();
 
     // Initialize form handlers
     initializeFormHandlers();
@@ -173,4 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('createAsaBtn').addEventListener('click', () => handleMenuClick('createAsa'));
     document.getElementById('optInAsaBtn').addEventListener('click', () => handleMenuClick('optInAsa'));
     document.getElementById('transferAsaBtn').addEventListener('click', () => handleMenuClick('transferAsa'));
+
+    // Add event listeners to control buttons
+    document.getElementById('startJourneyBtn').addEventListener('click', startJourney);
+    document.getElementById('toggleGuideBtn').addEventListener('click', toggleLearningGuide);
 });
