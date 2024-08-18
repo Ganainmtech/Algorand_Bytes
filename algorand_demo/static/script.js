@@ -22,6 +22,18 @@ const codeSnippets = {
     }
 };
 
+// Initialize currentStep and define the exact steps
+let currentStep = 0;
+const steps = [
+    'generateAccount',
+    'fundAccount',
+    'createAsa',
+    'generateAccount',
+    'fundAccount',
+    'optInAsa',
+    'transferAsa'
+];
+
 // Function to handle menu clicks
 function handleMenuClick(action) {
     // Load code snippet
@@ -61,12 +73,9 @@ function showForm(formId) {
     document.getElementById(formId).style.display = 'block';
 }
 
-// Initialize currentStep
-let currentStep = 0;
-
 // Start journey and show flash message
 function startJourney() {
-    currentStep = 1;
+    currentStep = 0;
     updateProgress();
 
     // Show flash message
@@ -81,8 +90,8 @@ function startJourney() {
 }
 
 // Move to the next step only if it's the expected step
-function nextStep(expectedStep) {
-    if (currentStep === expectedStep) {
+function nextStep(action) {
+    if (steps[currentStep] === action) {
         currentStep++;
         updateProgress();
         return true;  // Allow form submission
@@ -95,13 +104,13 @@ function nextStep(expectedStep) {
 // Update progress bar and steps
 function updateProgress() {
     const progressBar = document.getElementById('progressBar');
-    const steps = document.querySelectorAll('.step');
+    const stepsElements = document.querySelectorAll('.step');
 
     // Update progress bar width
-    progressBar.style.width = (currentStep - 1) * (100 / (steps.length - 1)) + "%";
+    progressBar.style.width = (currentStep) * (100 / (steps.length)) + "%";
 
     // Update active step
-    steps.forEach((step, index) => {
+    stepsElements.forEach((step, index) => {
         if (index < currentStep) {
             step.classList.add('active');
         } else {
@@ -133,11 +142,10 @@ function updateBlockchainActivity(activity) {
 // Function to initialize form submission handlers
 function initializeFormHandlers() {
     const forms = document.querySelectorAll('.action-forms form');
-    forms.forEach((form, index) => {
+    forms.forEach((form) => {
         form.addEventListener('submit', function(event) {
-            console.log('Generate Account button clicked');
-            
-            if (!nextStep(index + 1)) {
+            const action = form.id.replace('Form', '');
+            if (!nextStep(action)) {
                 event.preventDefault(); // Prevent submission if not ready
             } else {
                 console.log('Form is being submitted');  // Check if submission is allowed
