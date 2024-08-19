@@ -59,27 +59,35 @@ h1, h2 {
 
 /* Styles for active and inactive buttons */
 button.active {
-    background-color: #2D2DF1; /* Dark Blue for active */
+    background-color: #4BB543; 
     color: white;
+    border-radius: 25px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); 
 }
 
 button.inactive {
-    background-color: #17CAC6; /* Teal for inactive */
+    background-color: #17CAC6; 
     color: white;
+    border-radius: 25px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); 
 }
 
-/* Adjustments for the general button style to avoid conflicts */
 button {
-    background-color: #555; /* Default grey background */
+    background-color: #17CAC6; 
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 25px; 
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    border-radius: 25px; 
+    font-weight: 600; 
 }
 
 button:hover {
-    background-color: #777; /* Lighter grey on hover */
+    background-color: #4BB543; 
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
 /* Menu Bar Styles */
@@ -163,14 +171,14 @@ button:hover {
     list-style: none;
     padding: 0;
     margin-top: 20px;
-    color: #d8000c;
+    color: #4BB543;
 }
 
 .flash-messages li {
     background-color: #ffffff;
     padding: 10px;
     margin-bottom: 5px;
-    border: 1px solid #d8000c;
+    border: 1px solid #4BB543;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -213,6 +221,7 @@ table tbody tr:nth-child(odd) {
 table tbody tr:hover {
     background-color: #e0f7f7;
 }
+
 .hero {
     text-align: center;
     padding: 50px 20px;

@@ -91,7 +91,7 @@ function startJourney() {
     setActiveButton('startJourneyBtn');
 }
 
-// Function to toggle learning guide
+// Function to toggle learning guide on/off
 function toggleLearningGuide() {
     learningGuideActive = !learningGuideActive;
 
@@ -179,7 +179,11 @@ function setActiveButton(activeButtonId) {
     toggleGuideBtn.classList.remove('active');
 
     // Set the clicked button as active
-    document.getElementById(activeButtonId).classList.add('active');
+    const activeButton = document.getElementById(activeButtonId);
+    activeButton.classList.add('active');
+
+    // Save active button state to localStorage
+    localStorage.setItem('activeButton', activeButtonId);
 }
 
 // Function to update blockchain activity table (can be called on page load or other events)
@@ -220,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load saved state from localStorage
     const savedStep = localStorage.getItem('currentStep');
     const savedGuideState = localStorage.getItem('learningGuideActive');
+    const activeButtonId = localStorage.getItem('activeButton');
 
     if (savedStep) {
         currentStep = parseInt(savedStep, 10);
@@ -227,6 +232,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (savedGuideState !== null) {
         learningGuideActive = savedGuideState === 'true';
+    }
+
+    // Restore active button
+    if (activeButtonId) {
+        setActiveButton(activeButtonId);
     }
 
     updateProgress();
