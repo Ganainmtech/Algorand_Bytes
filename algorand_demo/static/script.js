@@ -86,6 +86,9 @@ function startJourney() {
 
     // Show flash message
     showFlashMessage("Your journey has started! Hint: Generate your account.");
+
+    // Set button states
+    setActiveButton('startJourneyBtn');
 }
 
 // Function to toggle learning guide
@@ -108,6 +111,9 @@ function toggleLearningGuide() {
     localStorage.setItem('learningGuideActive', learningGuideActive.toString());
     localStorage.setItem('currentStep', currentStep);
     updateProgress();
+
+    // Set button states
+    setActiveButton('toggleGuideBtn');
 }
 
 // Function to show flash messages
@@ -161,6 +167,19 @@ function updateProgress() {
 
     // Save current step to localStorage
     localStorage.setItem('currentStep', currentStep);
+}
+
+// Set the active button and reset others
+function setActiveButton(activeButtonId) {
+    const startJourneyBtn = document.getElementById('startJourneyBtn');
+    const toggleGuideBtn = document.getElementById('toggleGuideBtn');
+
+    // Reset button styles
+    startJourneyBtn.classList.remove('active');
+    toggleGuideBtn.classList.remove('active');
+
+    // Set the clicked button as active
+    document.getElementById(activeButtonId).classList.add('active');
 }
 
 // Function to update blockchain activity table (can be called on page load or other events)

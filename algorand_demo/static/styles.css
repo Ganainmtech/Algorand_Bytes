@@ -57,6 +57,31 @@ h1, h2 {
     transform: scale(1.05);
 }
 
+/* Styles for active and inactive buttons */
+button.active {
+    background-color: #2D2DF1; /* Dark Blue for active */
+    color: white;
+}
+
+button.inactive {
+    background-color: #17CAC6; /* Teal for inactive */
+    color: white;
+}
+
+/* Adjustments for the general button style to avoid conflicts */
+button {
+    background-color: #555; /* Default grey background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #777; /* Lighter grey on hover */
+}
+
 /* Menu Bar Styles */
 .menu-bar {
     display: flex;
