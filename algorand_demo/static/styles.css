@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000000; /* Black background for the navbar */
+    background: linear-gradient(to left, #2D2DF1, #17CAC6);
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: sticky;
@@ -22,24 +22,24 @@ body {
 
 .navbar-left {
     display: flex;
-    align-items: center; /* Center items vertically within the navbar-left */
+    align-items: center; 
 }
 
 .logo-link {
     display: flex;
-    align-items: center; /* Centers logo and text vertically */
-    text-decoration: none; /* Removes underline from the link */
-    color: #ffffff; /* White text color */
+    align-items: center; 
+    text-decoration: none; 
+    color: #ffffff; 
 }
 
 .logo {
-    width: 50px; /* Adjust width as needed */
-    margin-right: 10px; /* Space between the logo and text */
-    cursor: pointer; /* Pointer cursor on hover */
+    width: 50px; 
+    margin-right: -5px; 
+    cursor: pointer; 
 }
 
 .logo-text {
-    font-size: 1.2em; /* Adjust font size as needed */
+    font-size: 1.2em; 
     font-weight: bold;
 }
 
@@ -86,7 +86,7 @@ h1, h2 {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Positioning the logo and text in the top-left corner */
+/* Hero and Container / Code box */
 .hero {
     position: relative; 
     padding: 20px 20px;
@@ -294,6 +294,7 @@ table tbody tr:hover {
     background-color: #e0f7f7;
 }
 
+/* Progress Bar */
 .hero {
     text-align: center;
     position: relative;
