@@ -158,6 +158,11 @@ function updateProgress() {
             }
         });
 
+        // Check if all steps are completed
+        if (currentStep === steps.length) {
+            launchConfetti();  // Trigger confetti if all steps are completed
+        }
+
         // Show the progress container
         document.querySelector('.progress-container').style.display = 'block';
     } else {
@@ -219,30 +224,42 @@ function initializeFormHandlers() {
     });
 }
 
-// Ensure the JavaScript executes after the DOM has loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Load saved state from localStorage
+// Confetti launcher function
+function launchConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}
+
+// Load state from localStorage on page load
+window.onload = function() {
+    // Load current step and learning guide state
     const savedStep = localStorage.getItem('currentStep');
     const savedGuideState = localStorage.getItem('learningGuideActive');
-    const activeButtonId = localStorage.getItem('activeButton');
+    const savedActiveButton = localStorage.getItem('activeButton');
 
-    if (savedStep) {
-        currentStep = parseInt(savedStep, 10);
-    }
-
-    if (savedGuideState !== null) {
+    // Restore learning guide state and progress
+    if (savedGuideState) {
         learningGuideActive = savedGuideState === 'true';
+        if (learningGuideActive && savedStep) {
+            currentStep = parseInt(savedStep, 10);
+            updateProgress();
+
+            // Trigger confetti if progress is 100% after loading the page
+            if (currentStep === steps.length) {
+                launchConfetti();
+            }
+        }
     }
 
-    // Restore active button
-    if (activeButtonId) {
-        setActiveButton(activeButtonId);
+    // Restore active button state
+    if (savedActiveButton) {
+        setActiveButton(savedActiveButton);
     }
 
-    updateProgress();
-
-    // Initialize form handlers
-    initializeFormHandlers();
+    initializeFormHandlers();  // Attach form handlers on page load
 
     // Add event listeners to menu buttons
     document.getElementById('generateAccountBtn').addEventListener('click', () => handleMenuClick('generateAccount'));
@@ -254,4 +271,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add event listeners to control buttons
     document.getElementById('startJourneyBtn').addEventListener('click', startJourney);
     document.getElementById('toggleGuideBtn').addEventListener('click', toggleLearningGuide);
-});
+};

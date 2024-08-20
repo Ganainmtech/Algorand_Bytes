@@ -270,3 +270,24 @@ table tbody tr:hover {
     color: #17CAC6;
     background-color: #e0f5f4; /* Light background for active step */
 }
+
+/* Flash message styling */
+#flashMessage {
+    background-color: #f0c14b;
+    color: #111;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+    display: none;
+    border-radius: 5px;
+}
+
+/* Confetti animation */
+canvas.confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1000;
+}
+

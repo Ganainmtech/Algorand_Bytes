@@ -2,6 +2,7 @@
 
 echo "Running setup script..."
 
+npm install canvas-confetti
 pipx install poetry
 pip install typing-extensions
 poetry init -n
