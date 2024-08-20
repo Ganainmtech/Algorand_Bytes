@@ -265,6 +265,20 @@ window.onload = function() {
 
     initializeFormHandlers();  // Attach form handlers on page load
 
+    // Add event listeners to nav buttons
+    document.getElementById('lightModeBtn').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        alert("This feature is coming soon!"); // Show alert message
+    });
+    document.getElementById('signInBtn').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        alert("This feature is coming soon!"); // Show alert message
+    });
+    document.getElementById('signUpBtn').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        alert("This feature is coming soon!"); // Show alert message
+    });
+
     // Add event listeners to menu buttons
     document.getElementById('generateAccountBtn').addEventListener('click', () => handleMenuClick('generateAccount'));
     document.getElementById('fundAccountBtn').addEventListener('click', () => handleMenuClick('fundAccount'));

@@ -12,18 +12,23 @@
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a href="#" class="navbar-logo">
-                Developer Portal
-            </a>
-        </div>
-        <div class="navbar-right">
-            <button class="mode-toggle">🌙</button> <!-- Placeholder for dark/light mode -->
-            <button class="sign-in">Sign In</button>
-            <button class="sign-up">Sign Up</button>
-        </div>
-    </nav>
+<nav class="navbar">
+    <div class="navbar-left">
+        <a href="https://developer.algorand.org/?utm_source=algokit_utils_demo_webpage&utm_medium=algokit_utils_demo_webpage&utm_campaign=algodevportal&utm_term=Global" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="logo-link">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+            <span class="logo-text">Developer Portal</span>
+        </a>
+    </div>
+    <div class="navbar-right">
+        <button id="lightModeBtn" class="mode-toggle">🌙</button> 
+        <button id="signInBtn" class="sign-in">Sign In</button>
+        <button id="signUpBtn" class="sign-up">Sign Up</button>
+    </div>
+</nav>
+
     <!-- Hero Section -->
     <section class="hero">
        <!--<a href="https://developer.algorand.org/?utm_source=algokit_utils_demo_webpage&utm_medium=algokit_utils_demo_webpage&utm_campaign=algodevportal&utm_term=Global" target="_blank" rel="noopener noreferrer" class="logo-link">

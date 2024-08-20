@@ -20,11 +20,27 @@ body {
     z-index: 1000;
 }
 
-.navbar-left a {
+.navbar-left {
+    display: flex;
+    align-items: center; /* Center items vertically within the navbar-left */
+}
+
+.logo-link {
+    display: flex;
+    align-items: center; /* Centers logo and text vertically */
+    text-decoration: none; /* Removes underline from the link */
     color: #ffffff; /* White text color */
-    font-size: 1.2em;
+}
+
+.logo {
+    width: 50px; /* Adjust width as needed */
+    margin-right: 10px; /* Space between the logo and text */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.logo-text {
+    font-size: 1.2em; /* Adjust font size as needed */
     font-weight: bold;
-    text-decoration: none;
 }
 
 .navbar-right {
