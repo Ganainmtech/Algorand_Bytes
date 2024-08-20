@@ -271,6 +271,10 @@ window.onload = function() {
     document.getElementById('createAsaBtn').addEventListener('click', () => handleMenuClick('createAsa'));
     document.getElementById('optInAsaBtn').addEventListener('click', () => handleMenuClick('optInAsa'));
     document.getElementById('transferAsaBtn').addEventListener('click', () => handleMenuClick('transferAsa'));
+    document.getElementById('atomicSwapBtn').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        alert("This feature is coming soon!"); // Show alert message
+    });
 
     // Add event listeners to control buttons
     document.getElementById('startJourneyBtn').addEventListener('click', startJourney);
