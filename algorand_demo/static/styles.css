@@ -7,17 +7,77 @@ body {
     text-align: center;
 }
 
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000; /* Black background for the navbar */
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-left a {
+    color: #ffffff; /* White text color */
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.navbar-right .mode-toggle {
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 1.2em;
+}
+
+.navbar-right .sign-in {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.navbar-right .sign-up {
+    background-color: #ff6f6f;
+    color: #ffffff;
+}
+
+.navbar-right button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+
 h1, h2 {
     color: #001324;
     font-weight: 700;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
-/*
-.logo {
-    width: 100px;
-    margin-bottom: 10px;
+
+/* Positioning the logo and text in the top-left corner */
+.hero {
+    position: relative; 
+    padding: 20px 20px;
+    background-color: #f0f8ff;
+    text-align: center;
 }
-*/
+
 .code-container {
     margin: 20px auto;
     padding: 20px;
@@ -220,6 +280,7 @@ table tbody tr:hover {
 
 .hero {
     text-align: center;
+    position: relative;
     padding: 20px 20px;
     background-color: #f0f8ff;
 }

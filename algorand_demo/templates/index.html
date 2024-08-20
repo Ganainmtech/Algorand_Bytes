@@ -11,9 +11,31 @@
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/jpg">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="navbar-logo">
+                Developer Portal
+            </a>
+        </div>
+        <div class="navbar-right">
+            <button class="mode-toggle">🌙</button> <!-- Placeholder for dark/light mode -->
+            <button class="sign-in">Sign In</button>
+            <button class="sign-up">Sign Up</button>
+        </div>
+    </nav>
     <!-- Hero Section -->
     <section class="hero">
-        <!--<img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo"> -->
+       <!--<a href="https://developer.algorand.org/?utm_source=algokit_utils_demo_webpage&utm_medium=algokit_utils_demo_webpage&utm_campaign=algodevportal&utm_term=Global" target="_blank" rel="noopener noreferrer" class="logo-link">
+            <div class="logo-text-container">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+                <div class="logo-text">
+                    <div class="text-line">Developer</div>
+                    <div class="text-line">Portal</div>
+                </div>
+            </div>
+        </a>
+    -->
         <h1>Algokit Utils Demo</h1>
         <p class="intro-text">Start your journey with Algorand by learning how to generate accounts, fund them, create and transfer assets.</p>
         
