@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algorand Demo</title>
+    <title>Algokit Utils Demo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -13,9 +13,8 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
-        <h1>Algorand Demo</h1>
-        <h2 class="subtitle">Welcome to the Algorand Journey</h2>
+        <!--<img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo"> -->
+        <h1>Algokit Utils Demo</h1>
         <p class="intro-text">Start your journey with Algorand by learning how to generate accounts, fund them, create and transfer assets.</p>
         
         <!-- Progress Bar -->
@@ -90,6 +89,15 @@
             <input type="text" name="receiver_address" placeholder="Receiver Address" required>
             <input type="number" name="amount" placeholder="Amount to Transfer" required>
             <button type="submit" class="btn">Transfer ASA</button>
+        </form>
+
+        <!-- Form for atomic swap -->
+        <form id="atomicSwapForm" action="/atomic_swap" method="post" style="display: none;">
+            <input type="text" name="sender_address" placeholder="Sender Address" required>
+            <input type="text" name="receiver_address" placeholder="Receiver Address" required>
+            <input type="number" name="amount" placeholder="Amount to Transfer" required>
+            <input type="number" name="amount" placeholder="Amount to Transfer" required>
+            <button type="submit" class="btn">Execute Atomic Swap</button>
         </form>
     </div>
 

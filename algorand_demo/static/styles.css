@@ -3,7 +3,7 @@ body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #E7FAF9 0%, #D1F4F4 100%);
     margin: 0;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
 }
 
@@ -12,17 +12,12 @@ h1, h2 {
     font-weight: 700;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
-
-.subtitle {
-    color: #333;
-    margin-bottom: 20px;
-}
-
+/*
 .logo {
     width: 100px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
-
+*/
 .code-container {
     margin: 20px auto;
     padding: 20px;
@@ -59,7 +54,7 @@ h1, h2 {
 
 /* Styles for active and inactive buttons */
 button.active {
-    background-color: #4BB543; 
+    background-color: red; 
     color: white;
     border-radius: 25px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -67,17 +62,18 @@ button.active {
 }
 
 button.inactive {
-    background-color: #17CAC6; 
+    background-color: black; 
     color: white;
     border-radius: 25px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); 
 }
 
 button {
-    background-color: #17CAC6; 
+    background-color: green; 
     color: white;
     border: none;
     padding: 12px 25px; 
+    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
     border-radius: 25px; 
@@ -224,7 +220,7 @@ table tbody tr:hover {
 
 .hero {
     text-align: center;
-    padding: 50px 20px;
+    padding: 20px 20px;
     background-color: #f0f8ff;
 }
 

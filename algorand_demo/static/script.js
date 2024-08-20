@@ -52,7 +52,6 @@ function handleMenuClick(action) {
             navigator.clipboard.writeText(codeSnippets[action].code).then(function() {
                 alert('Code copied to clipboard!');
             }).catch(function(err) {
-                console.error('Failed to copy code: ', err);
                 alert('Failed to copy code.');
             });
         };
@@ -91,30 +90,29 @@ function startJourney() {
     setActiveButton('startJourneyBtn');
 }
 
-// Function to toggle learning guide on/off
+// Function to turn off learning guide and hide the progress bar
 function toggleLearningGuide() {
-    learningGuideActive = !learningGuideActive;
+    learningGuideActive = false;  // Turn off the learning guide
 
-    if (!learningGuideActive) {
-        showFlashMessage("Learning guide off, have fun!");
-        // Hide the progress bar when the guide is off
-        document.querySelector('.progress-container').style.display = 'none';
-        // Reset progress
-        currentStep = 0;
-    } else {
-        showFlashMessage("Learning guide on, follow the steps!");
-        // Show the progress bar when the guide is on
-        document.querySelector('.progress-container').style.display = 'block';
-    }
+    showFlashMessage("Learning guide off, have fun!");
+    
+    // Hide the progress bar when the guide is off
+    document.querySelector('.progress-container').style.display = 'none';
+    
+    // Reset progress
+    currentStep = 0;
 
     // Save state to localStorage
-    localStorage.setItem('learningGuideActive', learningGuideActive.toString());
+    localStorage.setItem('learningGuideActive', 'false');
     localStorage.setItem('currentStep', currentStep);
+
+    // Update progress (though it should just reset and hide the bar)
     updateProgress();
 
     // Set button states
     setActiveButton('toggleGuideBtn');
 }
+
 
 // Function to show flash messages
 function showFlashMessage(message) {
@@ -183,13 +181,17 @@ function setActiveButton(activeButtonId) {
     startJourneyBtn.classList.remove('active');
     toggleGuideBtn.classList.remove('active');
 
-    // Set the clicked button as active
-    const activeButton = document.getElementById(activeButtonId);
-    activeButton.classList.add('active');
+    // Set the appropriate button based on the learning guide state
+    if (learningGuideActive) {
+        toggleGuideBtn.classList.add('active');  // Learning guide ON
+    } else {
+        startJourneyBtn.classList.add('active');  // Learning guide OFF
+    }
 
-    // Save active button state to localStorage
+    // Optionally save active button state to localStorage, but it's not necessary
     localStorage.setItem('activeButton', activeButtonId);
 }
+
 
 // Function to update blockchain activity table (can be called on page load or other events)
 function updateBlockchainActivity(activity) {
@@ -233,7 +235,6 @@ function launchConfetti() {
     });
 }
 
-// Load state from localStorage on page load
 window.onload = function() {
     // Load current step and learning guide state
     const savedStep = localStorage.getItem('currentStep');
@@ -251,6 +252,9 @@ window.onload = function() {
             if (currentStep === steps.length) {
                 launchConfetti();
             }
+        } else {
+            // Hide the progress bar if the guide is off
+            document.querySelector('.progress-container').style.display = 'none';
         }
     }
 
@@ -272,3 +276,4 @@ window.onload = function() {
     document.getElementById('startJourneyBtn').addEventListener('click', startJourney);
     document.getElementById('toggleGuideBtn').addEventListener('click', toggleLearningGuide);
 };
+
