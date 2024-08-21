@@ -114,7 +114,7 @@
             <button type="submit" class="btn">Transfer ASA</button>
         </form>
 
-        <!-- Form for atomic swap -->
+        <!-- Form for atomic swap TBD -->
         <form id="atomicSwapForm" action="/atomic_swap" method="post" style="display: none;">
             <input type="text" name="sender_address" placeholder="Sender Address" required>
             <input type="text" name="receiver_address" placeholder="Receiver Address" required>
@@ -174,6 +174,7 @@
     </table>
     {% endif %}
 
+    <!-- Import confetti animcation and script.js -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

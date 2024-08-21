@@ -188,7 +188,7 @@ function setActiveButton(activeButtonId) {
         startJourneyBtn.classList.add('active');  // Learning guide OFF
     }
 
-    // Optionally save active button state to localStorage, but it's not necessary
+    // Optionally save active button state to localStorage
     localStorage.setItem('activeButton', activeButtonId);
 }
 
@@ -219,7 +219,7 @@ function initializeFormHandlers() {
             if (!nextStep(action)) {
                 event.preventDefault(); // Prevent submission if not ready
             } else {
-                console.log('Form is being submitted');  // Check if submission is allowed
+                console.log('Form is being submitted'); 
                 form.submit();  // Ensure form submission
             }
         });
@@ -268,15 +268,15 @@ window.onload = function() {
     // Add event listeners to nav buttons
     document.getElementById('lightModeBtn').addEventListener('click', function(event) {
         event.preventDefault(); 
-        alert("This feature is coming soon!"); // Show alert message
+        alert("This feature is coming soon!"); 
     });
     document.getElementById('signInBtn').addEventListener('click', function(event) {
         event.preventDefault(); 
-        alert("This feature is coming soon!"); // Show alert message
+        alert("This feature is coming soon!"); 
     });
     document.getElementById('signUpBtn').addEventListener('click', function(event) {
         event.preventDefault(); 
-        alert("This feature is coming soon!"); // Show alert message
+        alert("This feature is coming soon!"); 
     });
 
     // Add event listeners to menu buttons
@@ -287,7 +287,7 @@ window.onload = function() {
     document.getElementById('transferAsaBtn').addEventListener('click', () => handleMenuClick('transferAsa'));
     document.getElementById('atomicSwapBtn').addEventListener('click', function(event) {
         event.preventDefault(); 
-        alert("This feature is coming soon!"); // Show alert message
+        alert("This feature is coming soon!"); 
     });
 
     // Add event listeners to control buttons
