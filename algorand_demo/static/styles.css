@@ -33,14 +33,17 @@ body {
 }
 
 .logo {
-    width: 50px; 
-    margin-right: -5px; 
+    width: 50px;
+    margin-right: -10px;
     cursor: pointer; 
 }
 
 .logo-text {
+    text-decoration: none;
     font-size: 1.2em; 
     font-weight: bold;
+    margin-left: 5px; 
+    color: inherit; 
 }
 
 .navbar-right {
@@ -56,6 +59,12 @@ body {
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.3s, transform 0.3s;
+}
+
+.navbar-right .dev-portal {
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 1.2em;
 }
 
 .navbar-right .mode-toggle {
