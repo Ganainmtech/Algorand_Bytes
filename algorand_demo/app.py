@@ -12,10 +12,16 @@ blockchain_activity = []
 
 @app.route('/')
 def index():
+    """
+    Renders the index page with the current blockchain activity.
+    """
     return render_template('index.html', data=blockchain_activity)
 
 @app.route('/generate_account', methods=['POST'])
 def generate_account():
+    """
+    Generates a new Algorand account and adds the account creation to the blockchain activity log.
+    """
     try:
         account_address = algo.generate_account()
         blockchain_activity.append((None, account_address, 'Account Created', None))
@@ -27,6 +33,9 @@ def generate_account():
 
 @app.route('/fund_account', methods=['POST'])
 def fund_account():
+    """
+    Funds the provided Algorand account address and logs the transaction.
+    """
     address = request.form.get('address')
     try:
         tx_id = algo.fund_account(address)
@@ -39,6 +48,9 @@ def fund_account():
 
 @app.route('/create_asa', methods=['POST'])
 def create_asa():
+    """
+    Creates a new Algorand Standard Asset (ASA) and logs the creation in the blockchain activity log.
+    """
     creator_address = request.form.get('creator_address')
     total = int(request.form.get('total'))
     
@@ -53,6 +65,9 @@ def create_asa():
 
 @app.route('/opt_in_asa', methods=['POST'])
 def opt_in_asa():
+    """
+    Opts a receiver account into an ASA, allowing it to receive the asset, and logs the activity.
+    """
     receiver_address = request.form.get('receiver_address')
     
     try:
@@ -68,6 +83,9 @@ def opt_in_asa():
 
 @app.route('/transfer_asa', methods=['POST'])
 def transfer_asa():
+    """
+    Transfers a specified amount of ASA from a sender to a receiver and logs the transaction.
+    """
     sender_address = request.form.get('sender_address')
     receiver_address = request.form.get('receiver_address')
     amount = int(request.form.get('amount'))
