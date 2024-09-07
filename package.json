@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "algosdk": "^2.9.0",
     "canvas-confetti": "^1.9.3"
   }
 }
